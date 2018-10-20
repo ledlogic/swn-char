@@ -1,0 +1,7 @@
+.ability-scores {
+    font-size: 0.8em;
+}
+
+.ability-scores .list-group-item {
+    padding: 4px;
+}
