@@ -45,6 +45,35 @@ export const abilityScores = (
     abilityScores)
 };
 
+export const randomizeDie = (die) => {
+	return Math.round(Math.random() * (die - 1)) + 1;
+}
+
+export const randomizeScore = () => {
+	var total = 0;
+	var qty = 3;
+	var die = 6;
+	for (var i=0; i<qty; i++) {
+		total += randomizeDie(die);
+	}
+	return total;
+}
+
+export const randomizeScores = (
+  abilityScores
+) => {
+	var map = [];
+    for (var i in abilityScores) {
+    	var ability = abilityScores[i];
+    	var value = randomizeScore();
+    	map.push({
+    		name: ability.name,
+    		value: value
+    	})
+    }
+    return map;
+};
+
 export const proficient = (
   {
     name,

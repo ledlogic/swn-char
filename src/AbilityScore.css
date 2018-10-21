@@ -4,3 +4,11 @@
     width: 15px;
     height: 15px;
 }
+
+.ability-score.legend {
+	font-weight: bold;
+}
+
+.ability-score span {
+	text-align: center;
+}

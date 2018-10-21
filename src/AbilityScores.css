@@ -5,3 +5,14 @@
 .ability-scores .list-group-item {
     padding: 4px;
 }
+
+.ability-scores .swn-actions {
+	display: inline-block;
+	float: right;
+	margin: 10px 0 0 10px;
+}
+
+.ability-scores h4 {
+	display: inline-block;
+	float: left;
+}

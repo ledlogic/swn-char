@@ -7,11 +7,24 @@ import {modifier} from './calculations';
 const AbilityScores = ({
   onAddAbilityScore,
   onRemoveAbilityScore,
+  onRandomizeScores,
   abilityScores
 }) => (
   <div className='col-sm-12 ability-scores'>
-    <h4>Ability Scores</h4>
+    <span class="clearfix">
+    	<h4>Attributes</h4>
+    	<span class="swn-actions">
+    		<button onClick={onRandomizeScores}>Randomize</button>
+    	</span>
+    </span>
     <ul className='list-group'>
+      <li className='list-group-item'>
+      <div className='ability-score row legend'>
+	      <label className='col-sm-4'>Name</label>
+	      <span className='col-sm-2'>Score</span>
+	      <span className='col-sm-2'>Modifier</span>
+	    </div>
+      </li>
       {map(
         ({name, value}) => (
           <li key={name} className='list-group-item'>

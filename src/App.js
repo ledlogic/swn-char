@@ -29,6 +29,7 @@ import {
   savingThrows,
   calcAC,
   getModifier,
+  randomizeScores
 }
 from './calculations';
 
@@ -62,6 +63,11 @@ class App extends Component {
       abilities: decAbility(name, this.state.abilities)
     });
   }
+  handleRandomizeScores = () => {
+	this.setState({ 
+		abilities: randomizeScores(this.state.abilities)
+	});
+  }
   render() {
     return (
       <div className="App">
@@ -73,9 +79,12 @@ class App extends Component {
             <span className='space-16'></span>
         	<Row>
         		<Col sm='4'>
-        		<AbilityScores abilityScores={this.abilityScores}
+        		<AbilityScores
+        		    abilityScores={this.abilityScores}
         			onAddAbilityScore={this.handleAddAbilityScore}
-        			onRemoveAbilityScore={this.handleRemoveAbilityScore} />
+        			onRemoveAbilityScore={this.handleRemoveAbilityScore}
+        		    onRandomizeScores={this.handleRandomizeScores}
+        		/>
         		</Col>
         		<Col sm='4'>
         		</Col>

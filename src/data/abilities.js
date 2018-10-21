@@ -1,6 +1,6 @@
-export const STR = 'STR';
-export const DEX = 'DEX';
-export const CON = 'CON';
-export const INT = 'INT';
-export const WIS = 'WIS';
-export const CHA = 'CHA';
+export const STR = 'Strength';
+export const DEX = 'Dexterity';
+export const CON = 'Constitution';
+export const INT = 'Intelligence';
+export const WIS = 'Wisdom';
+export const CHA = 'Charisma';
