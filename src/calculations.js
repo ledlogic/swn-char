@@ -75,15 +75,22 @@ export const skills = (
 };
 
 const changeAbilityWithFn = (name, abilities, fn) => {
+	var min = 3;
+    var max = 18;
   return map(
+    
     ability => (
       ability.name === name ?
           {
             ...ability,
-            value: fn(ability.value)
+            value: constrain(fn(ability.value), min, max)
           } :
           ability),
     abilities)
+};
+
+export const constrain = (val, min, max) => {
+	return Math.min(Math.max(val, min), max);
 };
 
 export const incAbility = (name, abilities) => {
