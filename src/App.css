@@ -1,5 +1,5 @@
 * {
-	font-family: "Eurostile LT Std Medium";
+	font-family: "Eurostile LT Std Medium", "Eurostile LT Std", sans-serif;
 }
 
 header {
@@ -8,6 +8,10 @@ header {
 
 h1 {
 	font-size: 20px;
+}
+
+h1, h2, h3, h4 {
+	font-family: "ArchiType", "Eurostile LT Std Medium", "Eurostile LT Std", sans-serif;
 }
 
 .space-16 {
