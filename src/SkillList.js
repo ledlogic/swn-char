@@ -14,7 +14,7 @@ const SkillList = ({
   skills,
   skillsChosen,
   full,
-  onSkillChosen,
+  onSkillChecked,
 }) => {
   const names = map(get('name'), skillsChosen);
   return (
@@ -34,9 +34,13 @@ const SkillList = ({
                 <Col sm='2'>
                 <input type='checkbox'
                   checked={includes(name, names)}
-                  onClick={() => onSkillChosen(name)}/>
+                  onClick={() => onSkillChecked(name)}/>
                 </Col>
-                <Col sm='2'>{value}</Col>
+                <Col sm='2'>
+                {value !== -1 && 
+                	<span>{value}</span>
+                }                
+                </Col>
               </Row>
             </li>
           ),

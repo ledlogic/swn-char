@@ -12,6 +12,8 @@ import {
   includes,
   reject,
   concat,
+  update,
+  filter
 } from 'lodash/fp';
 
 export function modifier(__) {
@@ -130,11 +132,24 @@ export const changeSkillsChosen = (
 ) => {
   const skill = find(matches({name: skillName}), skills);
   const names = map(get('name'), skillsChosen);
-
+  const skillExists = includes(skillName, names);
+  console.log(skillExists);
   return includes(skillName, names) ?
-    reject(matches({name: skillName}), skillsChosen) :
-    concat(skillsChosen, skill);
+		    reject(matches({name: skillName}), skillsChosen) :
+		    (skillExists ? filter(!matches({name: skillName}), skillsChosen) : concat(skillsChosen, skill));
 };
+
+export const baseSkillLevel = (
+  skillsChosen,
+  skills,
+  skillName) => {
+	  const skill = find(matches({name: skillName}), skills);
+	  const names = map(get('name'), skillsChosen);
+	  const skillExists = includes(skillName, names);
+	  var newSkills = map(skill => (skill.name === skillName ? {...skill, value: skillExists ? -1 : 0} : skill), skills);
+	  return newSkills;
+	  return includes(skillName, names) ? newSkills : skills;
+}
 
 export const getModifier = (
   name,

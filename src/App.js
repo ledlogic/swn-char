@@ -25,7 +25,8 @@ import {
   savingThrows,
   calcAC,
   getModifier,
-  randomizeScores
+  randomizeScores,
+  baseSkillLevel
 }
 from './calculations';
 import './App.css';
@@ -66,10 +67,8 @@ class App extends Component {
   handleAddSkill = (skillName) => {
 	    const {skills, skillsChosen, classChosen} = this.state;
 	    const newSkillsChosen = changeSkillsChosen(skillsChosen, skills, skillName);
-
 	    this.setState({
-	      skillsChosen: newSkillsChosen,
-	      skillsFull: newSkillsChosen.length === classChosen.proficiencies.skills.number
+	      skillsChosen: newSkillsChosen
 	    });
 	  }
   handleRemoveSkill = (skillName) => {
@@ -77,16 +76,18 @@ class App extends Component {
 	    const newSkillsChosen = changeSkillsChosen(skillsChosen, skills, skillName);
 
 	    this.setState({
-	      skillsChosen: newSkillsChosen,
-	      skillsFull: newSkillsChosen.length === classChosen.proficiencies.skills.number
+	      skillsChosen: newSkillsChosen
 	    });
 	  }
-  handleSkillChosen = (skillName) => {
+  handleSkillChecked = (skillName) => {
 	    const {skills, skillsChosen, classChosen} = this.state;
 	    const newSkillsChosen = changeSkillsChosen(skillsChosen, skills, skillName);
-
+	    const newSkills = baseSkillLevel(skillsChosen, skills, skillName);
 	    this.setState({
 	      skillsChosen: newSkillsChosen
+	    });	    
+	    this.setState({
+	      skills: newSkills
 	    });
 	  }
   render() {
@@ -109,7 +110,7 @@ class App extends Component {
                 	<SkillList skills={this.skills}
 	                	skillsChosen={this.state.skillsChosen}
 	                	full={this.state.skillsFull}
-	                	onSkillChosen={this.handleSkillChosen}
+                		onSkillChecked={this.handleSkillChecked}
                 	/>
         		</Col>
         	</Row>

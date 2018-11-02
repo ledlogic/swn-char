@@ -11,7 +11,7 @@ export const data = recursiveFreeze({
 const initialState = recursiveFreeze({
   ...data,
   abilities: map(name => ({name, value: 10}), data.abilities),
-  skills: map(skill => ({...skill, value: 0}), data.skills),
+  skills: map(skill => ({...skill, value: -1}), data.skills),
   baseAC: 10,
 });
 
