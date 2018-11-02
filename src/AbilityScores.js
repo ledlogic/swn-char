@@ -11,9 +11,9 @@ const AbilityScores = ({
   abilityScores
 }) => (
   <div className='col-sm-12 ability-scores'>
-    <span class="clearfix">
+    <span className="clearfix">
     	<h4>Attributes</h4>
-    	<span class="swn-actions">
+    	<span className="swn-actions">
     		<button onClick={onRandomizeScores}>Randomize</button>
     	</span>
     </span>

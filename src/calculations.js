@@ -85,37 +85,30 @@ export const proficient = (
 
 export const skills = (
   skillList,
-  abilityScores,
   proficiencies = {}
 ) => {
-  return map(
+  var ret = map(
     skill => {
-      var {value} = find(
-        matches({name: skill.ability}),
-        abilityScores);
-
       return {
         ...skill,
-        value: skill.value + modifier(value),
+        value: skill.value,
         proficient: proficient(skill, proficiencies.choices)
       };
     },
     skillList);
+  return ret;
 };
 
 const changeAbilityWithFn = (name, abilities, fn) => {
 	var min = 3;
     var max = 18;
-  return map(
-    
-    ability => (
-      ability.name === name ?
-          {
-            ...ability,
-            value: constrain(fn(ability.value), min, max)
-          } :
-          ability),
-    abilities)
+    return map(
+    	ability => (
+    		ability.name === name ? {
+    			...ability,
+    			value: constrain(fn(ability.value), min, max)
+	        } : ability),
+	    abilities)
 };
 
 export const constrain = (val, min, max) => {
@@ -141,35 +134,6 @@ export const changeSkillsChosen = (
   return includes(skillName, names) ?
     reject(matches({name: skillName}), skillsChosen) :
     concat(skillsChosen, skill);
-};
-
-export const savingThrows = (
-  abilities,
-  proficiencies = {}
-) => {
-  return map(
-    ({
-      name,
-      value
-    }) => {
-      const proficient = includes(
-        name,
-        proficiencies.savingThrows);
-
-      return {
-        name,
-        modifier: modifier(value) + (proficient ? 2 : 0),
-        proficient
-      };
-    }, abilities);
-};
-
-export const calcAC = (
-  abilities,
-  baseAC
-) => {
-  const {value} = find(matches({name: 'DEX'}), abilities);
-  return baseAC + modifier(value);
 };
 
 export const getModifier = (

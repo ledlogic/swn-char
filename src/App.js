@@ -2,16 +2,13 @@ import React, {
   Component
 }
 from 'react';
-
 import {Row, Col, ContainerFluid} from './Wrappers';
-
 import AbilityScores from './AbilityScores';
-
+import SkillList from './SkillList';
 import {
   getInitialState
 }
 from './data';
-
 import {
   map,
   get,
@@ -19,7 +16,6 @@ import {
   matches,
 }
 from 'lodash/fp';
-
 import {
   abilityScores,
   skills,
@@ -32,7 +28,6 @@ import {
   randomizeScores
 }
 from './calculations';
-
 import './App.css';
 
 class App extends Component {
@@ -40,18 +35,18 @@ class App extends Component {
 	    super();
 	    this.state = {
 	      ...getInitialState(),
-	   	race: {
-          name: ''
-        },
+        skillsChosen: [],
 	    name: '',
-	      playerName: ''
+	    playerName: ''
 	    };
 	  }
+	
   name = map(get('name'))
   get abilityScores() {
-    return abilityScores(
-      this.state.abilities,
-      this.state.race.abilities);
+    return abilityScores(this.state.abilities);
+  }
+  get skills() {
+    return skills(this.state.skills, {}.skills);
   }
   handleAddAbilityScore = (name) => {
     this.setState({
@@ -68,29 +63,54 @@ class App extends Component {
 		abilities: randomizeScores(this.state.abilities)
 	});
   }
+  handleAddSkill = (skillName) => {
+	    const {skills, skillsChosen, classChosen} = this.state;
+	    const newSkillsChosen = changeSkillsChosen(skillsChosen, skills, skillName);
+
+	    this.setState({
+	      skillsChosen: newSkillsChosen,
+	      skillsFull: newSkillsChosen.length === classChosen.proficiencies.skills.number
+	    });
+	  }
+  handleRemoveSkill = (skillName) => {
+	    const {skills, skillsChosen, classChosen} = this.state;
+	    const newSkillsChosen = changeSkillsChosen(skillsChosen, skills, skillName);
+
+	    this.setState({
+	      skillsChosen: newSkillsChosen,
+	      skillsFull: newSkillsChosen.length === classChosen.proficiencies.skills.number
+	    });
+	  }
+  handleSkillChosen = (skillName) => {
+	    const {skills, skillsChosen, classChosen} = this.state;
+	    const newSkillsChosen = changeSkillsChosen(skillsChosen, skills, skillName);
+
+	    this.setState({
+	      skillsChosen: newSkillsChosen
+	    });
+	  }
   render() {
     return (
       <div className="App">
+    	<header>
+	  		<h1>SWN Character Sheet</h1>
+	  	</header>
         <ContainerFluid>
-            <Row>
-	          <Col sm='12'>
-	          </Col>
-	        </Row>
-            <span className='space-16'></span>
         	<Row>
         		<Col sm='4'>
-        		<AbilityScores
-        		    abilityScores={this.abilityScores}
-        			onAddAbilityScore={this.handleAddAbilityScore}
-        			onRemoveAbilityScore={this.handleRemoveAbilityScore}
-        		    onRandomizeScores={this.handleRandomizeScores}
-        		/>
-        		</Col>
+	        		<AbilityScores
+	        		    abilityScores={this.abilityScores}
+	        			onAddAbilityScore={this.handleAddAbilityScore}
+	        			onRemoveAbilityScore={this.handleRemoveAbilityScore}
+	        		    onRandomizeScores={this.handleRandomizeScores}
+	        		/>
+	        	</Col>
         		<Col sm='4'>
-        		</Col>
-        		<Col sm='4'>
-        		</Col>
-        		<Col sm='4'>
+                	<SkillList skills={this.skills}
+	                	skillsChosen={this.state.skillsChosen}
+	                	full={this.state.skillsFull}
+	                	onSkillChosen={this.handleSkillChosen}
+                	/>
         		</Col>
         	</Row>
         </ContainerFluid>

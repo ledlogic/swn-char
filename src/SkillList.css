@@ -1,0 +1,8 @@
+.skill-list {
+    font-size: 0.8em;
+}
+
+.skill-list .list-group-item {
+    padding: 4px;
+    padding-bottom: 0;
+}
