@@ -47,6 +47,14 @@ export const abilityScores = (
     abilityScores)
 };
 
+export const randomLetter = () => {
+	return String.fromCharCode(65 + randomizeDie(26) - 1);
+}
+
+export const randomDigit = () => {
+	return (randomizeDie(11) - 1) + "";
+}
+
 export const randomizeDie = (die) => {
 	return Math.round(Math.random() * (die - 1)) + 1;
 }

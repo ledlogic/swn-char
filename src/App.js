@@ -4,6 +4,7 @@ import React, {
 from 'react';
 import {Row, Col, ContainerFluid} from './Wrappers';
 import AbilityScores from './AbilityScores';
+import CharName from './CharName';
 import SkillList from './SkillList';
 import {
   getInitialState
@@ -26,6 +27,8 @@ import {
   calcAC,
   getModifier,
   randomizeScores,
+  randomLetter,
+  randomDigit,
   baseSkillLevel
 }
 from './calculations';
@@ -35,10 +38,10 @@ class App extends Component {
 	constructor() {
 	    super();
 	    this.state = {
-	      ...getInitialState(),
-        skillsChosen: [],
-	    name: '',
-	    playerName: ''
+		    ...getInitialState(),
+	        skillsChosen: [],
+		    name: 'Default Name',
+		    playerName: ''
 	    };
 	  }
 	
@@ -90,6 +93,32 @@ class App extends Component {
 	      skills: newSkills
 	    });
 	  }
+  handleNewClassicName = () => {
+	    var letterCount = 1
+	    var digitCount = 4
+	    this.genName(letterCount, digitCount)
+      }
+  handleNewName = () => {
+	    var letterCount = 3
+	    var digitCount = 5
+	    this.genName(letterCount, digitCount)
+      }
+  genName = (letterCount, digitCount) => {
+	    var name = "";
+	    for (var i=0;i<letterCount;i++) {
+	    	name += randomLetter();
+	    }
+	    name += "-";
+	    var number = "";
+	    for (var i=0;i<digitCount;i++) {
+	    	number += randomDigit();
+	    }
+	    number = parseInt(number, 10);
+	    name += number;
+	    this.setState({
+	    	name: name
+	    })
+      }
   render() {
     return (
       <div className="App">
@@ -99,6 +128,12 @@ class App extends Component {
         <ContainerFluid>
         	<Row>
         		<Col sm='4'>
+	        		<CharName
+	        			name={this.state.name}
+	        			onNewClassicName={this.handleNewClassicName}
+	        		    onNewName={this.handleNewName}
+	        		/>
+        		
 	        		<AbilityScores
 	        		    abilityScores={this.abilityScores}
 	        			onAddAbilityScore={this.handleAddAbilityScore}
